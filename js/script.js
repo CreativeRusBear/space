@@ -1,106 +1,135 @@
 class nBodyProblem {
-	constructor(params){
-		this.g=params.g;
-		this.dt=params.dt;
-		this.softeningConst=params.softeningConst;
-		this.masses=params.masses;
-	}
+  constructor(params) {
+    this.g = params.g;
+    this.dt = params.dt;
+    this.softeningConst = params.softeningConst;
+    this.masses = params.masses;
+  }
+  updatePositionVectors() {
+    for (let i = 0, massesLen = this.masses.length; i < massesLen; i++) {
+      const massI = this.masses[i];
+      massI.x += massI.vx * this.dt;
+      massI.y += massI.vy * this.dt;
+      massI.z += massI.vz * this.dt;
+    }
+    return this;
+  }
 
-	updatePosVectors () {
-		for (let i=0, massesLen=this.masses.length; i<massesLen;i++){
-			const massI=this.masses[i];
-			massI.x+=massI.vx*this.dt;
-			massI.y+=massI.vy*this.dt;
-			massI.z+=massI.vz*this.dt;
-		}
-		return this;
-	}
+  updateVelocityVectors() {
+    for (let i = 0, massesLen = this.masses.length; i < massesLen; i++) {
+      const massI = this.masses[i];
+      massI.vx += massI.ax * this.dt;
+      massI.vy += massI.ay * this.dt;
+      massI.vz += massI.az * this.dt;
+    }
+  }
+  updateAccelerationVectors() {
+    for (let i = 0, massesLen = this.masses.length; i < massesLen; i++) {
+      let ax = 0, ay = 0, az = 0;
 
-	updateVelosityVectors () {
-		for (let i=0, massesLen=this.masses.length; i<massesLen;i++){
-			const massI=this.masses[i];
-			massI.x+=massI.ax*this.dt;
-			massI.y+=massI.ay*this.dt;
-			massI.z+=massI.az*this.dt;
-		}
-	}
+      const massI = this.masses[i];
 
-	updateAccelerationVectors () {
-		const massesLen=this.masses.length;
-		for (let i=0; i<massesLen;i++){
-				let ax=0;
-				let ay=0;
-				let az=0;
+      for (let j = 0; j < massesLen; j++) {
+        if (i !== j) {
+          const massJ = this.masses[j],
+          		dx = massJ.x - massI.x,
+          		dy = massJ.y - massI.y,
+          		dz = massJ.z - massI.z,
+          		distSq = dx * dx + dy * dy + dz * dz;
 
-				const massI=this.masses[i];
-
-				for (let j=0; j<massesLen; j++){
-					if (i!==j) {
-						const massJ=this.masses[j];
-
-						const dx=massJ.x-massI.x;
-						const dy=massJ.y-massI.y;
-						const dz=massJ.z-massI.z;
-
-						const distSq = dx*dx+dy*dy+dz*dz;
-
-						f=(this.g*massJ.m)/(distSq*Math.sqrt(distSq+this.softeningConst));
-
-						ax+=dx*f;
-						ay+=dy*f;
-						az+=dz*f;
-					}
-				}
-				massI.ax=ax;
-				massI.ay=ay;
-				massI.az=az;
-			}
-			return this;
-		}
+          const f =(this.g * massJ.m) /(distSq * Math.sqrt(distSq + this.softeningConst));
+          ax += dx * f;
+          ay += dy * f;
+          az += dz * f;
+        }
+      }
+      massI.ax = ax;
+      massI.ay = ay;
+      massI.az = az;
+    }
+    return this;
+  }
 }
 
 
-class Manifestation{
-	constructor(ctx, trailLength, radius){
-		this.ctx=ctx;
-		this.trailLength=transient;
-		this.radius=radius;
-		this.positions=[];
-	}
-	storePosition(x,y){
-		this.positions.push({x,y});
-		if (this.positions.length>this.trailLength) 
-			this.positions.shift();
-	}
-	draw(x,y){
-		this.storePosition(x,y);
-		for (let i=0, posLength=this.positions.length; i<posLength; i++){
-			let transparency,circleScaleFactor;
 
-			const scaleFactor = i/posLength;
-
-			if (i===posLength-1) {
-				transparency=1;
-				circleScaleFactor=1;
-			} else {
-				transparency=scaleFactor/2;
-				circleScaleFactor=scaleFactor;
-			}
-
-			this.ctx.beginPath();
-			this.ctx.arc(
-				this.positions[i].x, 
-				this.positions[i].y, 
-				this.scaleFactor*this.radius,
-				0,
-				2*Math.PI
-			);
-			this.ctx.fillStyle = `rgb(0,12,153,${this.transparency})`;
-			this.ctx.fill();
-			this.ctx.closePath();
-		}
+class Manifestation {
+	constructor(ctx, trailLength, radius) {
+	    this.ctx = ctx;
+	    this.trailLength = trailLength;
+	    this.radius = radius;
+	    this.positions = [];
+  	}
+   	storePosition(x, y) {
+	    this.positions.push({ x, y });
+	    if (this.positions.length > this.trailLength) 
+	      this.positions.shift();
 	}
+	draw(x, y) {
+	    this.storePosition(x, y);
+	    for (let i = 0, positionsLen = this.positions.length; i < positionsLen; i++) {
+	      let transparency,circleScaleFactor;
+
+	      const scaleFactor = i / positionsLen;
+
+	      if (i === positionsLen - 1) {
+	        transparency = 1;
+	        circleScaleFactor = 1;
+	      } else {
+	        transparency = scaleFactor / 2;
+	        circleScaleFactor = scaleFactor;
+	      }
+
+	      this.ctx.beginPath();
+	      this.ctx.arc(this.positions[i].x, this.positions[i].y, circleScaleFactor * this.radius, 0, 2 * Math.PI);
+	      this.ctx.fillStyle = `rgb(0, ${Math.floor(Math.random() * (175 - 45 + 1)) + 45}, 153, ${transparency})`;
+	      this.ctx.fill();
+	    }
+  	}
 }
+
+
+
+
+const populateManifestations = masses => {
+  masses.forEach(
+    mass =>
+    (mass["manifestation"] = new Manifestation(
+      ctx,
+      trailLength,
+      radius
+    ))
+  );
+};
+
+
+
+
+const animate = () => {
+  innerSolarSystem
+    .updatePositionVectors()
+    .updateAccelerationVectors()
+    .updateVelocityVectors();
+
+  ctx.clearRect(0, 0, width, height);
+
+  for (let i = 0, massesLen = innerSolarSystem.masses.length; i < massesLen; i++) {
+    const massI = innerSolarSystem.masses[i];
+
+    const x = width / 2 + massI.x * scale,
+          y = height / 2 + massI.y * scale;
+
+    massI.manifestation.draw(x, y);
+
+    if (massI.name) {
+      ctx.font = "16px Century Gothic";
+      ctx.fillText(massI.name, x + 12, y + 4);
+      ctx.fill();
+    }
+  }
+  requestAnimationFrame(animate);
+};
+
 
 
 
@@ -163,36 +192,38 @@ const g=39.5,
 	      vz: -0.1524041758922603
 	    }];
 
-
-
-const innerSolarSys=new nBodyProblem({
-	g,
-	dt,
-	masses: JSON.parse(JSON.stringify(masses)),
-	softeningConst
-});
-
-innerSolarSys.updatePosVectors()
-			 .updateAccelerationVectors()
-			 .updateVelosityVectors();
-
-
-
-const canvas = document.getElementById('canvas'),
-	  ctx = canvas.getContext('2d');
+const canvas = document.querySelector("#canvas"),
+      ctx = canvas.getContext("2d");
 
 const width = (canvas.width = window.innerWidth),
-      height = (canvas.height = window.innerHeight);
+	  height = (canvas.height = window.innerHeight);
 
-const radius = 4,
-	  scale = 70,
-	  trailLength =35;
+const scale = 70,
+	  radius = 4,
+	  trailLength = 35;
 
 
-const poplateManifestations = masses => {
-	masses.forEach(
-		mass=>(mass['manifestation'] = new Manifestation(ctx,trailLength,radius))
-	);
-};
 
-poplateManifestations(innerSolarSys.masses);
+
+
+
+
+const innerSolarSystem = new nBodyProblem({
+  g,
+  dt,
+  masses: JSON.parse(JSON.stringify(masses)), 
+  softeningConst
+});
+
+innerSolarSystem.updatePositionVectors()
+				.updateAccelerationVectors()
+				.updateVelocityVectors();
+
+populateManifestations(innerSolarSystem.masses);
+
+document.querySelector('#reset-btn').addEventListener('click', () => {
+  innerSolarSystem.masses = JSON.parse(JSON.stringify(masses));
+  populateManifestations(innerSolarSystem.masses);       
+}, false);
+
+animate();
