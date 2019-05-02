@@ -126,7 +126,20 @@ const animate = () => {
       ctx.fillText(massI.name, x + 12, y + 4);
       ctx.fill();
     }
+
+    if (x<radius || x>width-radius) 
+    	massI.vx=-massI.vx;
+    if (y<radius || y>height-radius) 
+    	massI.vy=-massI.vy;
   }
+  if (dragging) {
+  	ctx.beginPath();
+  	ctx.moveTo(mousePressX,mousePressY);
+  	ctx.lineTo(currentMouseX,currentMouseY);
+  	ctx.strokeStyle=`rgb(0, ${Math.floor(Math.random() * (175 - 45 + 1)) + 45}, 153)`;
+  	ctx.stroke();
+  }
+  
   requestAnimationFrame(animate);
 };
 
@@ -192,8 +205,10 @@ const g=39.5,
 	      vz: -0.1524041758922603
 	    }];
 
-const canvas = document.querySelector("#canvas"),
-      ctx = canvas.getContext("2d");
+const massesList = document.querySelector('#masses-list');
+
+const canvas = document.querySelector('#canvas'),
+      ctx = canvas.getContext('2d');
 
 const width = (canvas.width = window.innerWidth),
 	  height = (canvas.height = window.innerHeight);
@@ -204,6 +219,16 @@ const scale = 70,
 
 
 
+//for user's press mouse
+let mousePressX=0,
+	mousePressY=0;
+
+//current position mouse on the screen
+let currentMouseX=0,
+	currentMouseY=0;
+
+//variable for define mouse move
+let dragging=false;
 
 
 
@@ -226,4 +251,31 @@ document.querySelector('#reset-btn').addEventListener('click', () => {
   populateManifestations(innerSolarSystem.masses);       
 }, false);
 
+canvas.addEventListener('mousedown', e=>{
+	mousePressX=e.clientX;
+	mousePressY=e.clientY;
+	dragging=true;
+}, false);
+
+canvas.addEventListener('mousemove', e=>{
+	currentMouseX=e.clientX;
+	currentMouseY=e.clientY;
+},false);
+
+canvas.addEventListener('mouseup', e=>{
+	const x = (mousePressX-width/2)/scale,
+		  y = (mousePressY-height/2)/scale,
+		  z = 0,
+
+		  vx = (e.clientX-mousePressX)/35,
+		  vy = (e.clientY-mousePressY)/35,
+		  vz=0;
+
+
+
+		  innerSolarSystem.masses.push({m:parseFloat(massesList.value), x, y, z, vx, vy, vz, manifestation: new Manifestation(ctx, trailLength, radius)});
+		  dragging=false;
+},false);
+
 animate();
+
