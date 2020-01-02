@@ -90,7 +90,7 @@ class Manifestation {
 	 */
 	storePosition (x, y) {
 		this.positions.push({x, y});
-		if (this.positions.length > this.trailLength){
+		if (this.positions.length > this.trailLength) {
 			this.positions.shift();
 		}
 	}
@@ -115,7 +115,7 @@ class Manifestation {
 
 			this.ctx.beginPath();
 			this.ctx.arc(this.positions[i].x, this.positions[i].y, circleScaleFactor * this.radius, 0, 2 * Math.PI);
-			this.ctx.fillStyle = `rgb(0, ${Math.floor(Math.random() * (175 - 45 + 1)) + 45}, 153, ${transparency})`;
+			this.ctx.fillStyle = `rgba(103, 102, ${Math.floor(Math.random() * (197 - 25 + 1)) + 25}, ${transparency})`;
 			this.ctx.fill();
 		}
 	}
@@ -158,7 +158,7 @@ const animate = () => {
 		massI.manifestation.draw(x, y);
 
 		if (massI.name) {
-			ctx.font = '16px Century Gothic';
+			ctx.font = '16px Nunito Sans';
 			ctx.fillText(massI.name, x + 12, y + 4);
 			ctx.fill();
 		}
@@ -303,9 +303,8 @@ canvas.addEventListener('mouseup', e => {
 	const vy = (e.clientY-mousePressY)/35;
 	const vz=0;
 
-
-
 	innerSolarSystem.masses.push({
+		name      		  : massesList.selectedOptions[0].label,
 		m             : parseFloat(massesList.value),
 		x,
 		y,
