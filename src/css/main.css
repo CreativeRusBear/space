@@ -1,0 +1,24 @@
+@import "fonts.css";
+@import "font-sizes.css";
+@import "palette.css";
+
+*{
+    font-size: 16px;
+}
+
+body{
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-size: var(--standard-fs);
+    font-family: var(--noto-serif-sc, var(--standard-font));
+}
+
+canvas{
+    display: block;
+}
+
+section{
+	margin: 10px;
+}

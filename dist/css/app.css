@@ -1,0 +1,15 @@
+:root{
+    --standard-font: Century, 'Century Gothic', Arial, sans-serif;
+    --noto-serif-sc: 'Noto Serif SC';
+}
+:root{
+    /* font sizes */
+    --title-fs: 4rem;
+    --large-fs: 2rem;
+    --standard-fs: 1rem;
+    --small-fs: 0.7rem;
+}
+:root{
+
+}
+*{font-size:16px}body{margin:0;height:100vh;width:100vw;overflow:hidden;font-size:var(--standard-fs);font-family:var(--noto-serif-sc,var(--standard-font))}canvas{display:block}section{margin:10px}
