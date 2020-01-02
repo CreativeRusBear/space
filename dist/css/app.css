@@ -1,6 +1,6 @@
 :root{
     --standard-font: Century, 'Century Gothic', Arial, sans-serif;
-    --noto-serif-sc: 'Noto Serif SC';
+    --nunito-sans-font: 'Nunito Sans', sans-serif;
 }
 :root{
     /* font sizes */
@@ -10,6 +10,7 @@
     --small-fs: 0.7rem;
 }
 :root{
-
+    --milk-color: #F1FAEE;
+    --dark-grey-color: #1D3557;
 }
-*{font-size:16px}body{margin:0;height:100vh;width:100vw;overflow:hidden;font-size:var(--standard-fs);font-family:var(--noto-serif-sc,var(--standard-font))}canvas{display:block}section{margin:10px}
+*{font-size:18px;-webkit-box-sizing:border-box;box-sizing:border-box}body{margin:0;height:100vh;width:100vw;overflow:hidden;font-size:var(--standard-fs);font-family:var(--nunito-sans-font)}canvas{display:block}section{width:100%;position:fixed;bottom:10px;color:var(--milk-color);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}section>*{margin:10px}select::-ms-expand{display:none}select{display:inline-block;-webkit-box-sizing:border-box;box-sizing:border-box;padding:.2em .5em;border:1px solid var(--milk-color);font:inherit;line-height:inherit}button{border:none;background:var(--milk-color);color:var(--dark-grey-color);padding:.5em 1em;text-align:center;cursor:pointer;text-decoration:none;border-radius:4px;margin-left:auto;-webkit-transition:color,background .3s ease-out;-o-transition:color,background .3s ease-out;transition:color,background .3s ease-out;outline:none}button:hover{background:var(--dark-grey-color);color:var(--milk-color)}

@@ -3,7 +3,8 @@
 @import "palette.css";
 
 *{
-    font-size: 16px;
+    font-size: 18px;
+    box-sizing: border-box;
 }
 
 body{
@@ -12,7 +13,7 @@ body{
     width: 100vw;
     overflow: hidden;
     font-size: var(--standard-fs);
-    font-family: var(--noto-serif-sc, var(--standard-font));
+    font-family: var(--nunito-sans-font);
 }
 
 canvas{
@@ -20,5 +21,45 @@ canvas{
 }
 
 section{
-	margin: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 10px;
+    color: var(--milk-color);
+    display: flex;
+    align-items: center;
+}
+
+section>*{
+    margin: 10px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+select {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: .2em .5em;
+    border: 1px solid  var(--milk-color);
+    font: inherit;
+    line-height: inherit;
+}
+
+button{
+    border: none;
+    background: var(--milk-color);
+    color: var(--dark-grey-color);
+    padding: .5em 1em;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: auto;
+    transition: color, background .3s ease-out;
+    outline: none;
+}
+
+button:hover {
+    background: var(--dark-grey-color);
+    color: var(--milk-color);
 }
