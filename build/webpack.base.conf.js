@@ -69,6 +69,10 @@ module.exports={
 		}),
 		new copyWebpackPlugin([
 			{
+				from : `${paths.src}/manifest.json`,
+				to   : `${paths.dist}/manifest.json`,
+			},
+			{
 				from : `${paths.src}/img`,
 				to   : `${paths.dist}/img`,
 			},
