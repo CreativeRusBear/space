@@ -1,5 +1,5 @@
 /**
- * @author Artem Gusev <gusev2014russia@mail.ru> (CreativeRusBear)
+ * @author Artem Gusev (corocoto) <gusev2014russia@mail.ru>
  * @version 2.0.0
  * @copyright Artem Gusev 2020
  */
