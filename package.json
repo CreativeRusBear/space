@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/corocoto/space/issues"
   },
-  "homepage": "https://github.com/corocoto/space#readme",
+  "homepage": "https://github.com/corocoto/space",
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
