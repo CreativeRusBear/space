@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInjector = require('html-webpack-injector');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
@@ -18,7 +19,7 @@ module.exports={
 		paths: paths,
 	},
 	entry: {
-		index: [ 'babel-polyfill', `${paths.src}/js/index.js` ],
+		index_head: [ 'babel-polyfill', `${paths.src}/js/index.js` ],
 	},
 	output: {
 		filename   : 'js/[name].bundle.js',
@@ -63,14 +64,24 @@ module.exports={
 		}),
 		new HTMLWebpackPlugin({
 			template: path.resolve(__dirname, '../src/index.html'),
-		}),
+			filename: path.resolve(__dirname, '../dist/index.html'),
+     		chunks: ['index_head'],
+			chunksConfig: {          
+				async: ['index_head']  
+			}
+   		}),
+   		new HtmlWebpackInjector(),
 		new MiniCssExtractPlugin({
-			filename: '/css/[name].css',
+			filename: 'css/[name].css',
 		}),
 		new copyWebpackPlugin([
 			{
 				from : `${paths.src}/manifest.json`,
 				to   : `${paths.dist}/manifest.json`,
+			},
+			{
+				from : `${paths.src}/serviceWorker.js`,
+				to   : `${paths.dist}/serviceWorker.js`,
 			},
 			{
 				from : `${paths.src}/img`,
