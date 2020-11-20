@@ -7,7 +7,6 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const mozjpeg = require('imagemin-mozjpeg');
 const pngquant=require('imagemin-pngquant');
-require('babel-polyfill');
 
 const paths ={
 	src  : path.resolve(__dirname, '../src'),
@@ -19,7 +18,7 @@ module.exports={
 		paths: paths,
 	},
 	entry: {
-		index_head: [ 'babel-polyfill', `${paths.src}/js/index.js` ],
+		index_head: [`${paths.src}/js/index.js` ],
 	},
 	output: {
 		filename   : 'js/[name].bundle.js',
