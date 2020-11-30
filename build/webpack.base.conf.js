@@ -37,6 +37,7 @@ module.exports={
 				name     : '[path][name].[ext]',
 				emitFile : false,
 			},
+			type: 'asset/resource'
 		}, {
 			test : /\.css$/,
 			use  : [
