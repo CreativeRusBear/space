@@ -2,8 +2,9 @@ const staticAssets = [
 	'./index.html',
 	'./img/background.jpg',
 	'./img/favicon.ico',
-	'./css/index_head.css',
-	'./js/index_head.bundle.js',
+	'./css/index.css',
+	'./js/index.bundle.js',
+	'./js/single.bundle.js'
 ];
 
 self.addEventListener('install', async () => {

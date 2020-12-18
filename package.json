@@ -4,8 +4,8 @@
   "description": "Space scene",
   "private": true,
   "scripts": {
-    "dev": "webpack-serve --config build/webpack.dev.conf.js --open",
-    "build": "webpack --config build/webpack.build.conf.js",
+    "dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.conf.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.build.conf.js",
     "deploy": "gh-pages -d dist",
     "docs": "jsdoc -c jsdoc.json"
   },
@@ -36,11 +36,11 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
     "eslint": "^7.13.0",
-    "html-webpack-injector": "^1.1.4",
     "html-webpack-plugin": "^5.0.0-beta.1",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.1",

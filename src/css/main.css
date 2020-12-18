@@ -29,13 +29,14 @@ section{
     align-items: center;
 }
 
-section>*{
+section > *{
     margin: 10px;
 }
 
 select::-ms-expand {
     display: none;
 }
+
 select {
     display: inline-block;
     box-sizing: border-box;
