@@ -37,9 +37,7 @@ export class Manifestation {
 	 */
 	storePosition (x, y) {
 		this.positions.push({x, y});
-		if (this.positions.length > this.trailLength) {
-			this.positions.shift();
-		}
+		this.positions.length > this.trailLength && this.positions.shift();
 	}
 
 	/**
