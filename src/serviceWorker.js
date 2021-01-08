@@ -4,7 +4,8 @@ const staticAssets = [
 	'./img/favicon.ico',
 	'./css/index.css',
 	'./js/index.bundle.js',
-	'./js/single.bundle.js'
+	'./js/single.bundle.js',
+	'https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700&display=swap&subset=latin-ext'
 ];
 
 self.addEventListener('install', async () => {
