@@ -1,6 +1,6 @@
 /**
  * @author Artem Gusev (corocoto) <gusev2014russia@mail.ru>
- * @version 2.0.0
+ * @version 2.0.3
  * @copyright Artem Gusev 2020
  */
 
